@@ -15,4 +15,15 @@ app.post('/', async (req, res) => {
   res.json({ "msg": "OK" })
 })
 
+app.get('/:idFornecedor', async (req, res) => {
+  try {
+    const id = req.params.idFornecedor;
+    const fornecedor = new Fornecedor({ id });
+    await fornecedor.carregar();
+    res.send(fornecedor);
+  } catch (error) {
+    res.status(500).json({ "error": error.message });
+  }
+})
+
 module.exports = app
