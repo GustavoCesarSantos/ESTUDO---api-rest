@@ -15,5 +15,9 @@ module.exports = {
       throw new Error('Fornecedor não encontrado.');
 
     return encontrado;
+  },
+
+  async atualizar(id, dados) {
+    return model.update(dados, { where: { id } })
   }
 }

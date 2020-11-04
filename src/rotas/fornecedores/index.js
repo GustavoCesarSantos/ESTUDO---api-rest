@@ -26,4 +26,17 @@ app.get('/:idFornecedor', async (req, res) => {
   }
 })
 
+app.put('/:idFornecedor', async (req, res) => {
+  try {
+    const id = req.params.idFornecedor;
+    const dadosRecebidos = req.body;
+    const dados = Object.assign({}, dadosRecebidos, { id });
+    const fornecedor = new Fornecedor(dados);
+    await fornecedor.atualizar();
+    res.end();
+  } catch (error) {
+    res.status(500).json({ "error": error.message });
+  }
+})
+
 module.exports = app
