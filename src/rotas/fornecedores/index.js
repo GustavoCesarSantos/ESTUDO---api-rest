@@ -15,7 +15,7 @@ app.post('/', async (req, res) => {
     await fornecedor.criar();
     res.status(201).json({ "msg": "OK" })
   } catch (error) {
-    res.status(500).json({ "error": error.message });
+    res.status(400).json({ "error": error.message });
   }
 })
 
@@ -26,7 +26,7 @@ app.get('/:idFornecedor', async (req, res) => {
     await fornecedor.carregar();
     res.status(200).send(fornecedor);
   } catch (error) {
-    res.status(500).json({ "error": error.message });
+    res.status(404).json({ "error": error.message });
   }
 })
 
@@ -39,7 +39,7 @@ app.put('/:idFornecedor', async (req, res) => {
     await fornecedor.atualizar();
     res.status(204).end();
   } catch (error) {
-    res.status(500).json({ "error": error.message });
+    res.status(400).json({ "error": error.message });
   }
 })
 
@@ -51,7 +51,7 @@ app.delete('/:idFornecedor', async (req, res) => {
     await fornecedor.remover();
     res.status(204).end();
   } catch (error) {
-    res.status(500).json({ "error": error.message });
+    res.status(404).json({ "error": error.message });
   }
 })
 
