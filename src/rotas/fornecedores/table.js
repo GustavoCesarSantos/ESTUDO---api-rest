@@ -17,7 +17,11 @@ module.exports = {
     return encontrado;
   },
 
-  async atualizar(id, dados) {
+  atualizar(id, dados) {
     return model.update(dados, { where: { id } })
+  },
+
+  remover(id) {
+    return model.destroy({ where: { id } })
   }
 }
