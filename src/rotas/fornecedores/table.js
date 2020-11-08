@@ -1,4 +1,5 @@
 const model = require('./model');
+const NaoEncontrado = require('../../erros/NaoEncontrado');
 
 module.exports = {
   listar() {
@@ -12,7 +13,7 @@ module.exports = {
   async pegarPorId(id) {
     const encontrado = await model.findOne({ where: { id } })
     if(!encontrado)
-      throw new Error('Fornecedor não encontrado.');
+      throw new NaoEncontrado();
 
     return encontrado;
   },
