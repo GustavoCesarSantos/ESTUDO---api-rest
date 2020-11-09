@@ -7,7 +7,8 @@ const table = require('./table');
 app.get('/', async (req, res) => {
   const result = await table.listar();
   const serializador = new SerializadorFornecedor(res.getHeader('Content-Type'));
-  res.status(200).send(serializador.serializar(result));
+  const tt = serializador.serializar(result);
+  res.status(200).send(tt);
 })
 
 app.post('/', async (req, res, next) => {
