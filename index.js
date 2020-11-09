@@ -5,6 +5,7 @@ const CampoInvalido = require('./src/erros/CampoInvalido');
 const DadosNaoFornecidos = require('./src/erros/DadosNaoFornecidos');
 const FormatosACeitos = require('./src/Serializador').formatosAceitos;
 const NaoEncontrado = require('./src/erros/NaoEncontrado');
+const SerializadorError = require('./src/Serializador').SerializadorError;
 const ValorNaoSuportado = require('./src/erros/ValorNaoSuportado');
 const rotas = require('./src/rotas/fornecedores/index');
 const { formatosAceitos } = require('./src/Serializador');
@@ -36,8 +37,9 @@ app.use((error, req, res, next) => {
 
   if(error instanceof ValorNaoSuportado)
     status = 406;
-    
-  res.status(status).json({ "error": error.message, "id": error.idError });
+  
+  const serializador = new SerializadorError(res.getHeader('Content-Type'));
+  res.status(status).send( serializador.serializar({ "error": error.message, "id": error.idError }));
 })
 
 app.listen(config.get('api.porta'), () => console.log(`API RODANDO NA PORTA ${config.get('api.porta')}`));
