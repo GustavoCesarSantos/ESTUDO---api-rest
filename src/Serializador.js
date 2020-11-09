@@ -13,4 +13,11 @@ class Serializador {
   }
 }
 
-module.exports = { Serializador, formatosAceitos: ['application/json'] }
+class SerializadorFornecedor extends Serializador {
+  constructor(contentType) {
+    super();
+    this.contentType = contentType;
+  }
+}
+
+module.exports = { Serializador, SerializadorFornecedor, formatosAceitos: ['application/json'] }
