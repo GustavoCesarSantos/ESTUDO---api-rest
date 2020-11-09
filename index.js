@@ -3,12 +3,10 @@ const express = require('express');
 
 const CampoInvalido = require('./src/erros/CampoInvalido');
 const DadosNaoFornecidos = require('./src/erros/DadosNaoFornecidos');
-const FormatosACeitos = require('./src/Serializador').formatosAceitos;
+const { formatosAceitos, SerializadorError } = require('./src/Serializador');
 const NaoEncontrado = require('./src/erros/NaoEncontrado');
-const SerializadorError = require('./src/Serializador').SerializadorError;
 const ValorNaoSuportado = require('./src/erros/ValorNaoSuportado');
 const rotas = require('./src/rotas/fornecedores/index');
-const { formatosAceitos } = require('./src/Serializador');
 
 const app = express();
 app.use(express.json());

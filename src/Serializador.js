@@ -1,3 +1,5 @@
+const jsonToXml = require('jsontoxml');
+
 const ValorNaoSuportado = require("./erros/ValorNaoSuportado");
 
 class Serializador {
@@ -5,9 +7,18 @@ class Serializador {
     return JSON.stringify(dados);
   }
 
+  xml(dados) {
+    return jsonToXml({ [this.tag]: dados });
+  }
+
   serializar(dados) {
+    dados = this.filtrar(dados);
+
     if(this.contentType === 'application/json')
-      return this.json(this.filtrar(dados));
+      return this.json(dados);
+
+    if(this.contentType === 'application/xml')
+      return this.xml(dados);
 
     throw new ValorNaoSuportado(this.contentType)
   }
@@ -33,6 +44,7 @@ class SerializadorFornecedor extends Serializador {
     super();
     this.contentType = contentType;
     this.camposPublicos = [ 'id', 'empresa', 'categoria' ].concat(camposExtras || []);
+    this.tag = 'fornecedores';
   }
 }
 
@@ -41,7 +53,8 @@ class SerializadorError extends Serializador {
     super();
     this.contentType = contentType;
     this.camposPublicos = [ 'id', 'error' ].concat(camposExtras || []);
+    this.tag = 'error';
   }
 }
 
-module.exports = { Serializador, SerializadorFornecedor, SerializadorError, formatosAceitos: ['application/json'] }
+module.exports = { Serializador, SerializadorFornecedor, SerializadorError, formatosAceitos: ['application/json', 'application/xml'] }

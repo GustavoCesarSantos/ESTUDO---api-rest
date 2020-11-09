@@ -1,7 +1,7 @@
 const app = require('express').Router();
 
 const Fornecedor = require('./Fornecedor');
-const SerializadorFornecedor = require('../../Serializador').SerializadorFornecedor;
+const { SerializadorFornecedor } = require('../../Serializador');
 const table = require('./table');
 
 app.get('/', async (req, res) => {
